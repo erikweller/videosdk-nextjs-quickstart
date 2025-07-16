@@ -1,14 +1,20 @@
-import Script from "next/script";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import VideochatClientWrapper from "@/components/VideochatClientWrapper";
 
-export default function Page(props: any) {
-  const { searchParams } = props;
-  const topic = searchParams?.topic;
-  const name = searchParams?.name;
-  const sdkKey = searchParams?.sdkKey;
-  const signature = searchParams?.signature;
-  const role = searchParams?.role;
+type PageProps = {
+  params: { slug: string };
+  searchParams: {
+    name?: string;
+    sdkKey?: string;
+    signature?: string;
+    role?: string;
+    topic?: string;
+  };
+};
+
+export default function Page({ params, searchParams }: PageProps) {
+  const { topic, name, sdkKey, signature, role } = searchParams;
 
   if (!topic || !name || !sdkKey || !signature || !role) {
     return notFound();
