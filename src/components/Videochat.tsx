@@ -19,10 +19,17 @@ const Videochat = (props: { slug: string; JWT: string }) => {
   const [isAudioMuted, setIsAudioMuted] = useState(client.current.getCurrentUserInfo()?.muted ?? true);
   const videoContainerRef = useRef<HTMLDivElement>(null);
 
+  const getUserName = () => {
+  if (typeof window === 'undefined') return 'Anonymous';
+  const params = new URLSearchParams(window.location.search);
+  return params.get('name') || 'Anonymous';
+};
+
   const joinSession = async () => {
     await client.current.init("en-US", "Global", { patchJsMedia: true });
     client.current.on("peer-video-state-change", renderVideo);
-    await client.current.join(session, jwt, userName)
+    await client.current.join(session, jwt, getUserName())
+
       .catch((e) => console.log(e));
     setInSession(true);
     const mediaStream = client.current.getMediaStream();
@@ -107,5 +114,5 @@ const videoPlayerStyle = {
 } as CSSProperties;
 
 const urlParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
-const userName = urlParams.get("name") || `User-${new Date().getTime().toString().slice(8)}`;
+
 
