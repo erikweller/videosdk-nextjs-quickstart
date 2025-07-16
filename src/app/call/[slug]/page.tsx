@@ -2,20 +2,19 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 import VideochatClientWrapper from "@/components/VideochatClientWrapper";
 
-export default function Page({
-  params,
-  searchParams,
-}: {
+type PageProps = {
   params: { slug: string };
-  searchParams?: {
+  searchParams: {
     name?: string;
     sdkKey?: string;
     signature?: string;
     role?: string;
     topic?: string;
   };
-}) {
-  const { topic, name, sdkKey, signature, role } = searchParams || {};
+};
+
+export default function Page({ params, searchParams }: PageProps) {
+  const { topic, name, sdkKey, signature, role } = searchParams;
 
   if (!topic || !name || !sdkKey || !signature || !role) {
     return notFound();
