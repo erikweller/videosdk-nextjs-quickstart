@@ -1,16 +1,21 @@
-import Script from "next/script";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import VideochatClientWrapper from "@/components/VideochatClientWrapper";
 
-// ✅ DO NOT mark this as async unless you are awaiting something!
 export default function Page({
   params,
   searchParams,
 }: {
   params: { slug: string };
-  searchParams: { [key: string]: string | undefined };
+  searchParams?: {
+    name?: string;
+    sdkKey?: string;
+    signature?: string;
+    role?: string;
+    topic?: string;
+  };
 }) {
-  const { topic, name, sdkKey, signature, role } = searchParams;
+  const { topic, name, sdkKey, signature, role } = searchParams || {};
 
   if (!topic || !name || !sdkKey || !signature || !role) {
     return notFound();
