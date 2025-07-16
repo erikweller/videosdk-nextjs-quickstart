@@ -106,4 +106,6 @@ const videoPlayerStyle = {
   overflow: "hidden",
 } as CSSProperties;
 
-const userName = `User-${new Date().getTime().toString().slice(8)}`;
+const urlParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
+const userName = urlParams.get("name") || `User-${new Date().getTime().toString().slice(8)}`;
+
