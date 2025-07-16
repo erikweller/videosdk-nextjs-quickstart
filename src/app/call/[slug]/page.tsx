@@ -1,24 +1,18 @@
 import { notFound } from "next/navigation";
-import VideochatClientWrapper from "@/components/VideochatClientWrapper";
 import Script from "next/script";
+import VideochatClientWrapper from "@/components/VideochatClientWrapper";
 
-type CallPageProps = {
+type PageProps = {
   params: { slug: string };
-  searchParams?: {
-    name?: string;
-    sdkKey?: string;
-    signature?: string;
-    role?: string;
-    topic?: string;
-  };
+  searchParams: Record<string, string | undefined>;
 };
 
-export default async function Page({ params, searchParams }: CallPageProps) {
+export default function Page({ params, searchParams }: PageProps) {
   const { slug } = params;
-  const { name, sdkKey, signature, role, topic } = searchParams || {};
+  const { name, sdkKey, signature, role, topic } = searchParams;
 
   if (!name || !sdkKey || !signature || !role || !topic) {
-    return notFound(); // Could also render a nicer fallback UI here
+    return notFound();
   }
 
   return (
