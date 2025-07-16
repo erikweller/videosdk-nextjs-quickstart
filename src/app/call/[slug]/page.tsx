@@ -1,17 +1,18 @@
-import { notFound } from "next/navigation";
 import Script from "next/script";
+import { notFound } from "next/navigation";
 import VideochatClientWrapper from "@/components/VideochatClientWrapper";
 
-type PageProps = {
+// ✅ DO NOT mark this as async unless you are awaiting something!
+export default function Page({
+  params,
+  searchParams,
+}: {
   params: { slug: string };
-  searchParams: Record<string, string | undefined>;
-};
+  searchParams: { [key: string]: string | undefined };
+}) {
+  const { topic, name, sdkKey, signature, role } = searchParams;
 
-export default function Page({ params, searchParams }: PageProps) {
-  const { slug } = params;
-  const { name, sdkKey, signature, role, topic } = searchParams;
-
-  if (!name || !sdkKey || !signature || !role || !topic) {
+  if (!topic || !name || !sdkKey || !signature || !role) {
     return notFound();
   }
 
