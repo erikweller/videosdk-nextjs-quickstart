@@ -3,7 +3,7 @@ require('dotenv/config');
 
 const SDK_KEY = process.env.ZOOM_SDK_KEY!;
 const SDK_SECRET = process.env.ZOOM_SDK_SECRET!;
-const BASE_URL = 'http://localhost:3000/video'; // or your dev URL
+const BASE_URL = 'http://localhost:3000/call/zoom'; // or your dev URL
 
 if (!SDK_KEY || !SDK_SECRET) {
   console.error('❌ Missing ZOOM_SDK_KEY or ZOOM_SDK_SECRET in .env.local');
